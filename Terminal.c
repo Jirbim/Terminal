@@ -12,7 +12,7 @@
 #define INITIAL_COMMANDS_SIZE 10
 #define INITIAL_ARGS_SIZE 10
 
-// Функция для проверки синтаксиса ввода
+// Function to check input syntax
 int check_syntax(char *input)
 {
     int single_quotes = 0, double_quotes = 0;
@@ -143,7 +143,7 @@ int check_syntax(char *input)
     return 0;
 }
 
-// Функция для обработки перенаправлений
+// Function for handling redirects
 int handle_redirection(char **args, int *input_fd, int *output_fd, int *error_fd)
 {
     int i = 0;
@@ -239,7 +239,7 @@ int handle_redirection(char **args, int *input_fd, int *output_fd, int *error_fd
     return 0;
 }
 
-// Функция для разделения параметров
+// Function for splitting parameters
 char **split_arguments(char *command, size_t *arg_count)
 {
     size_t args_size = INITIAL_ARGS_SIZE;
@@ -481,7 +481,7 @@ char **split_arguments(char *command, size_t *arg_count)
 
 
 
-// Функция для выполнения команд
+// Function for executing commands
 int execute_command(char *command, int input_fd, int output_fd, int error_fd)
 {
     size_t arg_count;
@@ -580,7 +580,7 @@ int execute_command(char *command, int input_fd, int output_fd, int error_fd)
     return 0;
 }
 
-// Функция для выполнения конвейера команд
+// Function for executing a command pipeline
 void execute_pipeline(char **commands, int command_count)
 {
     int *pipe_fds = malloc(sizeof(int) * 2 * (command_count - 1));
@@ -615,7 +615,7 @@ void execute_pipeline(char **commands, int command_count)
             exit(EXIT_SUCCESS);
         }
 
-        int output_fd = (i < command_count - 1) ? pipe_fds[i * 2 + 1] : 1; // Если не последняя команда, используем pipe
+        int output_fd = (i < command_count - 1) ? pipe_fds[i * 2 + 1] : 1; // If not the last command, use pipe
         if (execute_command(commands[i], input_fd, output_fd, error_fd) == -1)
         {
             if (!command_failed)
@@ -630,7 +630,7 @@ void execute_pipeline(char **commands, int command_count)
 
         input_fd = pipe_fds[i * 2];
 
-        // Освобождаем память для токенов
+        // Freeing up memory for tokens
         for (size_t j = 0; j < arg_count; j++)
             free(args[j]);
         free(args);
