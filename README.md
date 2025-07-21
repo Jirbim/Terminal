@@ -32,7 +32,7 @@ To exit the program, type exit. The program will print "Shell is closing, bye" a
 
 Here I show the output of ls -l | wc command in a normal terminal and my terminal.
 
-![]()
+![](https://github.com/Jirbim/Terminal/blob/master/Ex1.gif)
 
 The program can open directories (command cd), if the directory is entered incorrectly, the program will display "Directory not found"
 
